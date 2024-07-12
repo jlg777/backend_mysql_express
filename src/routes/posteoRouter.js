@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const posteoController = require("../controller/posteoController");
+const posteoController = require('../controller/posteoController')
 
-router.post("/", posteoController.crearPosteo);
+router.post('/', posteoController.crearPosteo)
 
-module.exports = router;
+module.exports = router

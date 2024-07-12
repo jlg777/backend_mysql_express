@@ -1,35 +1,35 @@
-require("dotenv").config();
+require('dotenv').config()
 
-const mySql = require("mysql2");
+const mySql = require('mysql2')
 
 const connection = mySql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-});
+  port: process.env.DB_PORT
+})
 
 connection.connect((err) => {
   if (err) {
-    console.error("Error conectando a la base de datos", err);
-    return;
+    console.error('Error conectando a la base de datos', err)
+    return
   }
-  console.log("Conectado a la base de datos");
+  console.log('Conectado a la base de datos')
 
   connection.query(
     `CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`,
     (err, results) => {
       if (err) {
-        console.log("Error creando la base de datos: ", err);
-        return;
+        console.log('Error creando la base de datos: ', err)
+        return
       }
-      console.log("Base de datos asegurada");
+      console.log('Base de datos asegurada')
 
       connection.changeUser({ database: process.env.DB_NAME }, (err) => {
         if (err) {
-          console.error(`Error al cambiar a ${process.env.DB_NAME}`, err);
-          return;
+          console.error(`Error al cambiar a ${process.env.DB_NAME}`, err)
+          return
         }
 
         const createTableQuery = `
@@ -39,7 +39,7 @@ connection.connect((err) => {
                     pass VARCHAR(100) NOT NULL,
                     avatar VARCHAR(255) 
                 );            
-            `;
+            `
 
         const createTableContactoQuery = `
               CREATE TABLE IF NOT EXISTS contacto (
@@ -50,7 +50,7 @@ connection.connect((err) => {
                   correo VARCHAR(100) NOT NULL,
                   texto_mensaje TEXT NOT NULL
                 );
-            `;
+            `
         const createTablePosteosQuery = `
               CREATE TABLE IF NOT EXISTS posteos (
              id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -60,7 +60,7 @@ connection.connect((err) => {
              foto VARCHAR(255),
              FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
               );
-            `;
+            `
         const createTableProductosQuery = `
             CREATE TABLE IF NOT EXISTS productos (
              id INT PRIMARY KEY AUTO_INCREMENT,
@@ -69,7 +69,7 @@ connection.connect((err) => {
              foto VARCHAR(255),
              precio INT
               );
-            `;
+            `
         const createTableUsuarios_ProductosQuery = `
             CREATE TABLE IF NOT EXISTS usuarios_productos (
              id INT PRIMARY KEY AUTO_INCREMENT,
@@ -88,46 +88,46 @@ connection.connect((err) => {
              FOREIGN KEY (id_producto_3) REFERENCES productos(id),
              FOREIGN KEY (id_producto_4) REFERENCES productos(id)
 );
-            `;
+            `
 
         connection.query(createTableQuery, (err, results) => {
           if (err) {
-            console.log("Error creando la tabla: ", err);
-            return;
+            console.log('Error creando la tabla: ', err)
+            return
           }
-          console.log("Tabla Usuarios Creada");
-        });
+          console.log('Tabla Usuarios Creada')
+        })
         connection.query(createTableContactoQuery, (err, results) => {
           if (err) {
-            console.log("Error creando la tabla contacto: ", err);
-            return;
+            console.log('Error creando la tabla contacto: ', err)
+            return
           }
-          console.log("Tabla contacto creada");
-        });
+          console.log('Tabla contacto creada')
+        })
         connection.query(createTablePosteosQuery, (err, results) => {
           if (err) {
-            console.log("Error creando la tabla contacto: ", err);
-            return;
+            console.log('Error creando la tabla contacto: ', err)
+            return
           }
-          console.log("Tabla Posteos creada");
-        });
+          console.log('Tabla Posteos creada')
+        })
         connection.query(createTableProductosQuery, (err, results) => {
           if (err) {
-            console.log("Error creando la tabla contacto: ", err);
-            return;
+            console.log('Error creando la tabla contacto: ', err)
+            return
           }
-          console.log("Tabla Productos creada");
-        });
+          console.log('Tabla Productos creada')
+        })
         connection.query(createTableUsuarios_ProductosQuery, (err, results) => {
           if (err) {
-            console.log("Error creando la tabla contacto: ", err);
-            return;
+            console.log('Error creando la tabla contacto: ', err)
+            return
           }
-          console.log("Tabla Usuarios_Productos creada");
-        });
-      });
+          console.log('Tabla Usuarios_Productos creada')
+        })
+      })
     }
-  );
-});
+  )
+})
 
-module.exports = connection;
+module.exports = connection

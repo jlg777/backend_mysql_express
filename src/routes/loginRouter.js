@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const loginController = require("../controller/loginController");
+const loginController = require('../controller/loginController')
 
-router.post("/", loginController.ObtenerTodosLosUsuarios);
+router.post('/', loginController.ObtenerTodosLosUsuarios)
 
-module.exports = router;
+module.exports = router
