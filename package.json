@@ -42,7 +42,8 @@
     "mysql2": "^3.10.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4",
-    "standard": "^17.1.0"
+    "eslint": "^8.57.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "nodemon": "^3.1.4"
   }
 }
